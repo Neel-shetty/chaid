@@ -7,15 +7,13 @@ import numpy as np
 # !apt-get install graphviz
 from treelib import Tree as TreeLib
 from CHAID import Tree, NominalColumn
-
-
-
+import time
 
 # Read the data from the Excel file
 data = pd.read_excel('Group1&2 - DecisionTree & CHAID.xlsx')
 
 # Use only the first 10 rows
-# data = data.head(50)
+data = data.head(100)
 
 # Rename columns to match those used in the script (optional)
 data.columns = ['SNo', 'SDG', 'Overview', 'Founded_Year', 'Country', 'State', 'City', 'Is_Funded', 'Total_Funding', 'Annual_Revenue', 'Latest_12_month_growth', 'Annual_Net_Profit', 'Total_Employee_Count']
@@ -51,13 +49,18 @@ cols = [NominalColumn(data[col], name=col) for col in independent_variable_colum
 
 # Create the CHAID Tree
 tree = Tree(cols, NominalColumn(data[dep_variable], name=dep_variable), {'min_child_node_size': 5})
+ex_tree = Tree(cols, NominalColumn(data[dep_variable], name=dep_variable), {'min_child_node_size': 5, 'is_exhaustive':True})
+
 
 # Print the tree
 # tree.print_tree()
-tree.render("tree")
+tree.render("tree" + str(time.time()))
 tree_lib = tree.to_tree()
 tree_lib.save2file('tree')
 
+ex_tree.render("ex_tree" + str(time.time()))
+ex_tree_lib = ex_tree.to_tree()
+ex_tree_lib.save2file('ex_tree')
 # Visualize the TreeLib tree
 # For example, you could use TreeLib's methods to print the tree or export it
 # tree_lib.show()  # This will print the tree in a textual format
