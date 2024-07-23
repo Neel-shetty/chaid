@@ -52,8 +52,6 @@ tree = Tree(cols, NominalColumn(data[dep_variable], name=dep_variable), {'min_ch
 ex_tree = Tree(cols, NominalColumn(data[dep_variable], name=dep_variable), {'min_child_node_size': 5, 'is_exhaustive':True})
 
 
-# Print the tree
-# tree.print_tree()
 tree.render("tree" + str(time.time()))
 tree_lib = tree.to_tree()
 tree_lib.save2file('tree')
@@ -61,11 +59,3 @@ tree_lib.save2file('tree')
 ex_tree.render("ex_tree" + str(time.time()))
 ex_tree_lib = ex_tree.to_tree()
 ex_tree_lib.save2file('ex_tree')
-# Visualize the TreeLib tree
-# For example, you could use TreeLib's methods to print the tree or export it
-# tree_lib.show()  # This will print the tree in a textual format
-
-# To save the tree to a file (assuming TreeLib supports exporting)
-# tree_lib.export('tree.png')
-
-# visualize_tree(tree.print_tree())
